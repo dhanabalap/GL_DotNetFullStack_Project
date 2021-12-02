@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\GreatLearning_FullStack\\Git_src\\GL_DotNetFullStack_Project\\GL_DotNetFullStack_Project.csproj": {}
+    "E:\\GreatLearning_FullStack\\Git_src\\GL_DotNetFullStack_Project_Sprint2\\GL_DotNetFullStack_Project.csproj": {}
   },
   "projects": {
-    "E:\\GreatLearning_FullStack\\Git_src\\GL_DotNetFullStack_Project\\GL_DotNetFullStack_Project.csproj": {
+    "E:\\GreatLearning_FullStack\\Git_src\\GL_DotNetFullStack_Project_Sprint2\\GL_DotNetFullStack_Project.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\GreatLearning_FullStack\\Git_src\\GL_DotNetFullStack_Project\\GL_DotNetFullStack_Project.csproj",
+        "projectUniqueName": "E:\\GreatLearning_FullStack\\Git_src\\GL_DotNetFullStack_Project_Sprint2\\GL_DotNetFullStack_Project.csproj",
         "projectName": "GL_DotNetFullStack_Project",
-        "projectPath": "E:\\GreatLearning_FullStack\\Git_src\\GL_DotNetFullStack_Project\\GL_DotNetFullStack_Project.csproj",
+        "projectPath": "E:\\GreatLearning_FullStack\\Git_src\\GL_DotNetFullStack_Project_Sprint2\\GL_DotNetFullStack_Project.csproj",
         "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "E:\\GreatLearning_FullStack\\Git_src\\GL_DotNetFullStack_Project\\obj\\",
+        "outputPath": "E:\\GreatLearning_FullStack\\Git_src\\GL_DotNetFullStack_Project_Sprint2\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,9 +40,17 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.3, )"
             }
           },
           "imports": [

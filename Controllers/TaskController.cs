@@ -11,45 +11,51 @@ namespace GL_DotNetFullStack_Project.Controllers
     [ApiController]
     public class TaskController : ControllerBase
     {
-        private static int count = 4000;
-        private static List<PTask> PTaskList = new List<PTask>
-        {
-            new PTask{ID=++count, ProjectID=1, Status=2, AssignedToUserID=102, Detail="PTest Task 1", CreatedOn=DateTime.Now},
-            new PTask{ID=++count, ProjectID=2, Status=4, AssignedToUserID=101, Detail="PTest Task 2", CreatedOn=DateTime.Now},
-            new PTask{ID=++count, ProjectID=3, Status=3, AssignedToUserID=103, Detail="PTest Task 3", CreatedOn=DateTime.Now},
-            new PTask{ID=++count, ProjectID=2, Status=1, AssignedToUserID=103, Detail="PTest Task 4", CreatedOn=DateTime.Now},
-        };
+        private readonly ITaskRepository _taskRepository;
 
-        [HttpGet]
-        [Route("api/[controller]")]
-        public List<PTask> GetAllPTasks()
-        {
-            return PTaskList;
+        public TaskController(ITaskRepository taskRepository)
+        { 
+            _taskRepository = taskRepository;
         }
 
         [HttpGet]
-        [Route("api/[controller]/{id}")] 
-        public ActionResult<PTask> GetTaskById(int id)
+        [Route("api/[controller]")]
+        public ActionResult Get()
         {
             try
             {
-                var requestedPTask = PTaskList.FirstOrDefault(t => t.ID == id);
-                if (requestedPTask == null)
-                {
-                    return NotFound("Project Task not Found");
-                }
-                return Ok(requestedPTask);
+                return Ok(_taskRepository.GetAllTask());
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error creating project data ");
+                    "Error retrieving data ");
             }
+        }
+
+        [HttpGet]
+        [Route("api/[controller]/{id}")] 
+        public ActionResult<Task> GetTaskById(int id)
+        {
+            try
+            {
+                var data = _taskRepository.GetTaskById(id);
+                if (data == null)
+                {
+                    return NotFound("Task Record not Found");
+                }
+                return Ok(data);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data ");
+            }             
         }
 
         [HttpPost]
         [Route("api/[controller]")]
-        public ActionResult<PTask> CreateTask(PTask task)
+        public ActionResult<Task> CreateTask(Task task)
         {
             try
             {
@@ -57,43 +63,41 @@ namespace GL_DotNetFullStack_Project.Controllers
                 {
                     return BadRequest();
                 }
-
-                var existingTask = PTaskList.FirstOrDefault(t => t.ID == task.ID);
-                if (existingTask != null)
+                Task taskexist = _taskRepository.IsProjectTaskExists(task.ProjectID,task.Detail);
+                //is Task exist By Project Id and Task detail 
+                if (taskexist != null)
                 {
-                    return StatusCode(409, "TaskID already exists.");
+                    return StatusCode(409, "Trying create Project Id :"+ task.ProjectID+" and Task:"+task.Detail+" is already exists");
                 }
-                task.ID = ++count;
-                task.CreatedOn = DateTime.Now;
-                PTaskList.Add(task);
-                // return Ok(task);
+
+                Task createdTask = _taskRepository.CreateTask(task);
+                
                 return Created(HttpContext.Request.Scheme + "://" +
-                 HttpContext.Request.Host + HttpContext.Request.Path + "/" + task.ID, task);
+                 HttpContext.Request.Host + HttpContext.Request.Path + "/" + createdTask.ID, createdTask);
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error creating project data ");
+                    "Error Creating Task for the porject  ");
             }
+             
         }
 
         [HttpPut]
         [Route("api/[controller]")]
-        public ActionResult<PTask> UpdateTask(PTask task)
+        public ActionResult<Task> UpdateTask(Task task)
         {
             try
             {
-                var updatedTask = PTaskList.FirstOrDefault(t => t.ID == task.ID);
+                var updatedTask = _taskRepository.GetTaskById(task.ID);
                 if (updatedTask == null)
                 {
                     return NotFound("Project TaskID:"+task.ID+" not found to update");
                 }
-                updatedTask.ProjectID = task.ProjectID;
-                updatedTask.Status = task.Status;
-                updatedTask.AssignedToUserID = task.AssignedToUserID;
-                updatedTask.Detail = task.Detail;
+                Task UpdateTask = _taskRepository.UpdateTask(task);                
+
                 return Created(HttpContext.Request.Scheme + "://" +
-                 HttpContext.Request.Host + HttpContext.Request.Path + "/" + task.ID, task);
+                 HttpContext.Request.Host + HttpContext.Request.Path + "/" + UpdateTask.ID, updatedTask);
             }
             catch (Exception)
             {
@@ -106,13 +110,21 @@ namespace GL_DotNetFullStack_Project.Controllers
         [Route("{id}")]
         public IActionResult DeleteTaskById(int id)
         {
-            var deleteTask = PTaskList.FirstOrDefault(p => p.ID == id);
-            if (deleteTask != null)
+            try
             {
-                PTaskList.Remove(deleteTask);
-                return Ok("Task Deleted successfully");
+                var deletetaskt= _taskRepository.DeleteTaskById(id);
+                if (deletetaskt)
+                {
+                    return Ok("Task Id" + id + " deleted succesfully");
+                }
+                return StatusCode(409, "Task Id :" + id + "not exists to delete");
             }
-            return NotFound("Task ID:" + id + " not Found to Delete"); ;
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error Deleting Task data ");
+            }
+             
         }
 
     }

@@ -7,106 +7,124 @@ using System.Linq;
 
 namespace GL_DotNetFullStack_Project.Controllers
 {
-    [Route("api/[controller]")]
+    
     [ApiController]
     public class ProjectController : ControllerBase
-    {
-        private static int count = 0;
-        static List<Project> projectList = new List<Project>
-        {
-            new Project{ID=++count,Name="C# Project", Detail ="Detail for project 1",CreatedOn=DateTime.Now},
-            new Project{ID=++count,Name="ASP Core Project", Detail ="Detail for project 2",CreatedOn=DateTime.Now},
-            new Project{ID=++count,Name="ASP Core API Project", Detail ="Detail for project 3",CreatedOn=DateTime.Now},
-            new Project{ID=++count,Name="Project 4", Detail ="Detail for project 4",CreatedOn=DateTime.Now},
-        };
+    { 
+        private readonly IProjectRepository _projectRepository;
 
-
-        [HttpGet]
-        public List<Project> GetAllProjects()
+        public ProjectController(IProjectRepository projectRepository)
         {
-            return  projectList;
+            _projectRepository = projectRepository; //Constructor DI pattern
         }
 
-        [Route("{id}")]
         [HttpGet]
-        public ActionResult<Project> GetProjectByID(int id)
+        [Route("api/[controller]")]
+        public IActionResult GetAll()
         {
-           try{
-                var requestedProject = projectList.FirstOrDefault(p => p.ID == id);
-                if (requestedProject == null)
-                {
-                    return NotFound("Project Id not Found");
-                }
-                return Ok(requestedProject);
+            try
+            {
+                return Ok(_projectRepository.GetAllProject());
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving data ");
+            }             
+        }
+         
+        [HttpGet]
+        [Route("api/[controller]/{id}")]
+        public ActionResult GetById(int id)
+        {
+            try
+            {
+                var data = _projectRepository.GetProjectById(id);
+                if (data == null)
+                {
+                    return NotFound("Project Record not Found");
+                }
+                return Ok(data);
             }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data ");
+            }             
         }                
 
         [HttpPost]
-        public ActionResult<Project> CreateProject(Project project)
-        {
+        [Route("api/[controller]")]
+        public ActionResult<Project> Post([FromBody] Project project)
+        {            
             try
-            { if (project.Name == null || project.Detail == null)
+            {
+                if (project.Name == null || project.Detail == null)
                 {
                     return BadRequest();
                 }
-                var projectIdExists = projectList.FirstOrDefault(p => p.ID == project.ID);
-                if (projectIdExists != null)
+                Project prjExist = _projectRepository.GetProjectByName(project.Name);
+                //is Already Project Name exist
+                if (prjExist != null)
                 {
-                    return StatusCode(409, "ProjectID already exists");
+                    return StatusCode(409, "Project :" + project.Name + "already exists");
                 }
-                project.ID = ++count;
-                project.CreatedOn = DateTime.Now;
-                projectList.Add(project);
-                //return Ok();
+                 
+                Project createdproject = _projectRepository.CreateProject(project);
+                //return Ok("New User Created");
                 return Created(HttpContext.Request.Scheme + "://" +
-                HttpContext.Request.Host + HttpContext.Request.Path + "/" + project.ID, project);
+                 HttpContext.Request.Host + HttpContext.Request.Path + "/" + createdproject.ID, createdproject);
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error creating project data ");
-            }
+                    "Error Creating User data ");
+            }             
         }
 
         [HttpPut]
-        public ActionResult<Project> UpdateProject(Project project)
+        [Route("api/[controller]")]
+        public ActionResult<Project> Put([FromBody] Project project)
         {
             try
             {
-                var updatedProject = projectList.FirstOrDefault(p => p.ID == project.ID);
-
-                if (updatedProject == null)
+                Project updateproject = _projectRepository.GetProjectById(project.ID); ;
+                //is Already user not exist
+                if (updateproject == null)
                 {
-                    return NotFound("Project ID:" + project.ID + " Not Found to update");
+                    return NotFound( "Trying to Updat Project Id :" + project.ID + "not found ");
+                    //return new NoContentResult();
                 }
-                updatedProject.Name = project.Name;
-                updatedProject.Detail = project.Detail;
-
-                return Ok(updatedProject);
+                Project updatedProjec= _projectRepository.UpdateProject(project);
+                //return new OkResult(); 
+                return Created(HttpContext.Request.Scheme + "://" +
+                   HttpContext.Request.Host + HttpContext.Request.Path + "/" + updatedProjec.ID, updatedProjec);
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error Updating data ");
-            }
+                    "Error Updating Project data ");
+            } 
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("api/[controller]/{id}")]        
         public IActionResult DeleteProjectById(int id)
         {
-            var deletProject = projectList.FirstOrDefault(p => p.ID == id);
-            if (deletProject != null)
+            try
             {
-                projectList.Remove(deletProject);
-                return Ok("Project Delete sucessfully");
+                var prjdeleted = _projectRepository.DeleteProjectById(id);
+                if (prjdeleted)
+                {
+                    return Ok("Project " + id + " deleted succesfully");
+                }
+                return StatusCode(409, "Project :" + id + "not exists to delete");
             }
-            return NotFound("Project ID:" + id + " Not Found to Delete"); ;
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error Deletig User data ");
+            }             
         }
     }
 }

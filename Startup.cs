@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GL_DotNetFullStack_Project.Models;
+using Microsoft.EntityFrameworkCore;
+using GL_DotNetFullStack_Project.Data;
 
 namespace GL_DotNetFullStack_Project
 {
@@ -26,7 +28,13 @@ namespace GL_DotNetFullStack_Project
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IUserRepository, UserRepoImpl>();
+            services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase(databaseName:"ProjMgmtDB"));
+
+            //services.AddSingleton<IUserRepository, UserRepoImpl>();
+            //services.AddSingleton<IUserRepository, UserRepoSqlEfImpl>();            
+            services.AddScoped<IUserRepository, UserRepoSqlEfImpl>();
+            services.AddScoped<IProjectRepository, ProjectRepoSqlEfImpl>();
+            services.AddScoped<ITaskRepository, TaskRepoSqlEFImpl>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

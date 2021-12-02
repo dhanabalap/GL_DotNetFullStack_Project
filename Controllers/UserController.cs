@@ -16,12 +16,12 @@ namespace GL_DotNetFullStack_Project.Controllers
             _userRepository = userRepository; //DI pattern
             /* For better separate of concern  -Avoid this approach as this class should not be creating depedent class  instance/object
              instead use IOC container to register service use Constructor Depecy Injection
-              concern _userRepository = new UserRepoImpl(); */
+              Hi Soniaconcern _userRepository = new UserRepoImpl(); */
         }
 
         [HttpGet]
         [Route("api/[controller]")]
-        public IActionResult Get()
+        public IActionResult GetAllUsers()
         {
             try
             {
@@ -37,7 +37,7 @@ namespace GL_DotNetFullStack_Project.Controllers
 
         [HttpGet]
         [Route("api/[controller]/{id}")]
-        public IActionResult Get(int id)
+        public IActionResult GetUser(int id)
         {
             try
             {
@@ -72,15 +72,16 @@ namespace GL_DotNetFullStack_Project.Controllers
                     return StatusCode(409, "User with Email :" + user.Email + "already exists");
                 }
 
-                var createduser = _userRepository.CreateUser(user);
+                User createduser = _userRepository.CreateUser(user);
                 //return Ok("New User Created");
                 return Created(HttpContext.Request.Scheme + "://" +
-                 HttpContext.Request.Host + HttpContext.Request.Path + "/" + user.ID, user);
+                HttpContext.Request.Host + HttpContext.Request.Path + "/" + createduser.ID, createduser);
+               // doesnot work return CreatedAtRoute("GetAllUsers", new { ID = createduser.ID }, createduser);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error Creating User data ");
+                    "Error Creating User data, Err: "+e.ToString());
             }
 
         }
@@ -95,13 +96,14 @@ namespace GL_DotNetFullStack_Project.Controllers
                 //is Already user not exist
                 if (userexist == null)
                 {
-                    return StatusCode(409, "User UserId :" + user.ID + "not  exists");
+                    return StatusCode(409, "Trying to update User UserId :" + user.ID + "not  exists");
                     //return new NoContentResult();
                 }
-                var updObj = _userRepository.UpdateUser(user);
-                //return new OkResult(); 
+                User updObj = _userRepository.UpdateUser(user);
+
                 return Created(HttpContext.Request.Scheme + "://" +
-                   HttpContext.Request.Host + HttpContext.Request.Path + "/" + user.ID, user);
+                HttpContext.Request.Host + HttpContext.Request.Path + "/" + updObj.ID, updObj);
+                 
             }
             catch (Exception)
             {
@@ -118,13 +120,15 @@ namespace GL_DotNetFullStack_Project.Controllers
             {
                 var userdeleted = _userRepository.DeleteUserById(id);
                 if (userdeleted)
-                    return Ok();
-                return StatusCode(409, "User UserId :" + id + "not exists");
+                {
+                    return Ok("User Id" + id + " deleted succesfully");
+                }
+                return StatusCode(409, "User Id :" + id + "not exists to delete");
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error Updating User data ");
+                    "Error Deleting User data ");
             }
         }
 
