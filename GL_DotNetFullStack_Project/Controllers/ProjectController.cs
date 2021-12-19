@@ -4,127 +4,79 @@ using GL_DotNetFullStack_Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GL_DotNetFullStack_Project.Controllers
 {
     
     [ApiController]
-    public class ProjectController : ControllerBase
-    { 
-        private readonly IProjectRepository _projectRepository;
-
-        public ProjectController(IProjectRepository projectRepository)
+    [Route("api/[controller]")]
+    public class ProjectController : BaseCrudController<Project,ProjectRepoSqlEfImpl>
+    {
+        private readonly ProjectRepoSqlEfImpl _projectRepository;
+        public ProjectController(ProjectRepoSqlEfImpl repository) : base(repository)
         {
-            _projectRepository = projectRepository; //Constructor DI pattern
+            _projectRepository=repository;
         }
-
-        [HttpGet]
-        [Route("api/[controller]")]
-        public IActionResult GetAll()
-        {
-            try
-            {
-                return Ok(_projectRepository.GetAllProject());
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error retrieving data ");
-            }             
-        }
-         
-        [HttpGet]
-        [Route("api/[controller]/{id}")]
-        public ActionResult GetById(int id)
-        {
-            try
-            {
-                var data = _projectRepository.GetProjectById(id);
-                if (data == null)
-                {
-                    return NotFound("Project Record not Found");
-                }
-                return Ok(data);
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error retrieving data ");
-            }             
-        }                
-
+       /*
+        // POST: api/[controller]
         [HttpPost]
-        [Route("api/[controller]")]
-        public ActionResult<Project> Post([FromBody] Project project)
-        {            
+        public  async Task<ActionResult<Project>> Create(Project entity)
+        {
             try
             {
-                if (project.Name == null || project.Detail == null)
+                if (entity.Name == null || entity.Detail == null)
                 {
                     return BadRequest();
                 }
-                Project prjExist = _projectRepository.GetProjectByName(project.Name);
+                var prjExist = _projectRepository.Get(entity.ID);
                 //is Already Project Name exist
                 if (prjExist != null)
                 {
-                    return StatusCode(409, "Project :" + project.Name + "already exists");
+                    return StatusCode(409, "Project :" + entity.ID + "already exists");
                 }
-                 
-                Project createdproject = _projectRepository.CreateProject(project);
-                //return Ok("New User Created");
-                return Created(HttpContext.Request.Scheme + "://" +
-                 HttpContext.Request.Host + HttpContext.Request.Path + "/" + createdproject.ID, createdproject);
+                await _projectRepository.Add(entity);
+                return CreatedAtAction("Get", new { id = entity.ID }, entity);
+                //   return Created(HttpContext.Request.Scheme + "://" +
+                //    HttpContext.Request.Host + HttpContext.Request.Path + "/" + createdproject.ID, createdproject);
+
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error Creating User data ");
-            }             
+                    "Error Creating " + entity.ToString() + " data ");
+            }            
+              
         }
-
-        [HttpPut]
-        [Route("api/[controller]")]
-        public ActionResult<Project> Put([FromBody] Project project)
+        /*
+        // PUT: api/[controller]/5
+        [HttpPut("{id}")]
+        public  async Task<IActionResult> Update(int id, Project entity)
         {
             try
             {
-                Project updateproject = _projectRepository.GetProjectById(project.ID); ;
-                //is Already user not exist
-                if (updateproject == null)
-                {
-                    return NotFound( "Trying to Updat Project Id :" + project.ID + "not found ");
-                    //return new NoContentResult();
-                }
-                Project updatedProjec= _projectRepository.UpdateProject(project);
-                //return new OkResult(); 
-                return Created(HttpContext.Request.Scheme + "://" +
-                   HttpContext.Request.Host + HttpContext.Request.Path + "/" + updatedProjec.ID, updatedProjec);
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error Updating Project data ");
-            } 
-        }
+                if (id != entity.ID)
+                    return BadRequest();
 
-        [HttpDelete]
-        [Route("api/[controller]/{id}")]        
-        public IActionResult DeleteProjectById(int id)
-        {
-            try
-            {
-                var prjdeleted = _projectRepository.DeleteProjectById(id);
-                if (prjdeleted)
-                {
-                    return Ok("Project " + id + " deleted succesfully");
-                }
-                return StatusCode(409, "Project :" + id + "not exists to delete");
+                if (entity.Name == null || entity.Detail == null)                 
+                    return BadRequest(); 
+
+                var entityExist = await _projectRepository.Get(id);
+                if (entityExist == null) 
+                    return NotFound("Trying to Updat Project Id :" + entity.ID + "not found ");
+
+                await _projectRepository.Update(entity);
+                return NoContent();
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error Deletig User data ");
-            }             
+                    "Error Updating " + entity.ToString() + " data ");
+            }
+
         }
+        */
+         
+         
     }
 }

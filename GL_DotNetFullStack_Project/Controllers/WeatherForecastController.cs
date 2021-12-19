@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GL_DotNetFullStack_Project.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -15,14 +16,15 @@ namespace GL_DotNetFullStack_Project.Controllers
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
-
+        private readonly IWeatherForecastService _weatherForecastService;
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(IWeatherForecastService weatherForecastService, ILogger<WeatherForecastController> logger)
         {
+            _weatherForecastService = weatherForecastService;
             _logger = logger;
         }
-
+        /*
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
@@ -34,6 +36,15 @@ namespace GL_DotNetFullStack_Project.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+        }*/
+
+        [HttpGet]
+        public IActionResult Get()
+        {
+            //throw new NotImplementedException();
+            var weatherForecast = _weatherForecastService.Get();
+            return Ok(weatherForecast);
         }
+
     }
 }

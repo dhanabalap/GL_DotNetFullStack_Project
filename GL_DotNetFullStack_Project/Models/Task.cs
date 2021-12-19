@@ -2,7 +2,7 @@
 
 namespace GL_DotNetFullStack_Project.Models
 {
-    public class Task
+    public class Task :IBaseEntity
     {
         public int ID { get; set; }
         public int ProjectID { get; set; }
@@ -10,5 +10,6 @@ namespace GL_DotNetFullStack_Project.Models
         public int AssignedToUserID { get; set; }
         public string Detail { get; set; }
         public DateTime CreatedOn { get; set; }
+        
     }
 }

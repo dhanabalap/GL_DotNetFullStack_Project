@@ -1,17 +1,19 @@
 ﻿using GL_DotNetFullStack_Project.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GL_DotNetFullStack_Project.Models
 {
-    public class ProjectRepoSqlEfImpl : IProjectRepository
+    public class ProjectRepoSqlEfImpl : BaseEfCoreRepository<Project,AppDbContext>
     {
         private readonly AppDbContext _appDbContext;
         private static int count = 0;
-        public ProjectRepoSqlEfImpl(AppDbContext appDbContext)
+        public ProjectRepoSqlEfImpl(AppDbContext appDbContext) : base(appDbContext)
         {
-            _appDbContext = appDbContext;           
+             _appDbContext = appDbContext;           
 
             if (!_appDbContext.Projects.Any())
             {
@@ -22,63 +24,21 @@ namespace GL_DotNetFullStack_Project.Models
                 _appDbContext.SaveChanges();
             }
         }
-        public Project CreateProject(Project project)
+        /*
+        public new async Task<Project> Update(Project entity)
         {
-            if (project == null)
-            {
-                return null;
-            }
-            else               
-            {
-                project.ID = ++count;
-                project.CreatedOn = DateTime.Now;
-
-                _appDbContext.Projects.Add(project);
-                _appDbContext.SaveChanges();
-                return project;
-            }        
-        }
-
-        public bool DeleteProjectById(int id)
-        {
-            Project deletProject = GetProjectById(id);
-            if (deletProject != null)
-            {
-                _appDbContext.Projects.Remove(deletProject);
-                _appDbContext.SaveChanges();
-                return true;
-            }
-            return false;
-        }
-
-        public List<Project> GetAllProject()
-        {
-            return _appDbContext.Projects.ToList();
-        }
-
-        public Project GetProjectById(int id)
-        {
-            return _appDbContext.Projects.FirstOrDefault(prj => prj.ID == id);
-        }
-
-        public Project GetProjectByName(string name)
-        {
-            return _appDbContext.Projects.FirstOrDefault(prj => prj.Name == name);
-        }
-
-        public Project UpdateProject(Project project)
-        {
-            Project updProject = _appDbContext.Projects.FirstOrDefault(p => p.ID == project.ID);
+            var updProject = _appDbContext.Projects.FirstOrDefault(p => p.ID == entity.ID);
             if (updProject != null)
             {
-                updProject.Name = project.Name;
-                updProject.Detail = project.Detail;
+                updProject.Name = entity.Name;
+                updProject.Detail = entity.Detail;
 
-                _appDbContext.Projects.Update(updProject);
-                _appDbContext.SaveChanges();
+                _appDbContext.Entry(entity).State = EntityState.Modified;
+                await _appDbContext.SaveChangesAsync();
                 return updProject;
             }
             return null;
         }
+         */
     }
 }

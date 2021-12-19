@@ -20,4 +20,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GL_DotNetFullStack_Project\GL_DotNetFullStack_Project.csproj" />
+  </ItemGroup>
+
 </Project>

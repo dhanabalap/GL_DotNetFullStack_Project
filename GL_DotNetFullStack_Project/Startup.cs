@@ -31,10 +31,14 @@ namespace GL_DotNetFullStack_Project
             services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase(databaseName:"ProjMgmtDB"));
 
             //services.AddSingleton<IUserRepository, UserRepoImpl>();
-            //services.AddSingleton<IUserRepository, UserRepoSqlEfImpl>();            
-            services.AddScoped<IUserRepository, UserRepoSqlEfImpl>();
-            services.AddScoped<IProjectRepository, ProjectRepoSqlEfImpl>();
-            services.AddScoped<ITaskRepository, TaskRepoSqlEFImpl>();
+            //services.AddSingleton<IUserRepository, UserRepoSqlEfImpl>();
+            //services.AddScoped<IWeatherForecastService, WeatherForecastService>();
+            //services.AddScoped<IUserRepository, UserRepoSqlEfImpl>();
+            // services.AddScoped<IProjectRepository, ProjectRepoSqlEfImpl>();
+            services.AddScoped<UserRepoSqlEfImpl>();
+            services.AddScoped<ProjectRepoSqlEfImpl>();
+            services.AddScoped<TaskRepoSqlEFImpl>();
+            //services.AddScoped<ITaskRepository, TaskRepoSqlEFImpl>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using GL_DotNetFullStack_Project.Data;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace GL_DotNetFullStack_Project.Models
 {
-    public class UserRepoSqlEfImpl : IUserRepository
+    public class UserRepoSqlEfImpl : BaseEfCoreRepository<User, AppDbContext>
     {
         private readonly AppDbContext _appDbContext;
         private static int count = 100;
 
-        public UserRepoSqlEfImpl(AppDbContext appDbContext)
+        public UserRepoSqlEfImpl(AppDbContext appDbContext):base(appDbContext)
         {
             _appDbContext= appDbContext;
             
@@ -23,73 +24,7 @@ namespace GL_DotNetFullStack_Project.Models
             }
 
         }
-        public User CreateUser(User user)
-        {
-            if (user == null)
-            {
-                return null;
-            }
-            else
-            {
-                user.ID = ++count;
-                _appDbContext.Users.Add(user);
-                _appDbContext.SaveChanges();
-                return user;
-            }
-        }
-
-        public bool DeleteUserById(int id)
-        {
-            User deletUser = GetUserByID(id);
-            if (deletUser != null)
-            {
-                _appDbContext.Users.Remove(deletUser);
-                _appDbContext.SaveChanges();
-                return true;
-            }
-            return false; 
-
-        }
-
-        public List<User> GetAllUsers()
-        { 
-            return _appDbContext.Users.ToList();            
-        }
-
-        public User GetUserByID(int id)
-        {
-            return _appDbContext.Users.FirstOrDefault(usr => usr.ID == id);
-        }
-
-        public bool IsUserEmailExist(string email)
-        {
-            User user = _appDbContext.Users.FirstOrDefault(u => u.Email == email);
-            if (user != null)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public User UpdateUser(User user)
-        {
-            User updUser = GetUserByID(user.ID);
-            if (updUser == null)
-            {
-                return null;// NotFound();
-            }
-             
-            updUser.FirstName = user.FirstName;
-            updUser.LastName = user.LastName;
-            updUser.Email = user.Email;
-            updUser.Password = user.Password;
-
-            _appDbContext.Users.Update(updUser);
-            _appDbContext.SaveChanges();
-
-            return updUser;
-        }
-
+        /*
         public bool UserLogin(string email, string password)
         {
             var loginUser = _appDbContext.Users.FirstOrDefault(x => x.Email == email && x.Password == password);
@@ -100,5 +35,25 @@ namespace GL_DotNetFullStack_Project.Models
 
             return true;// Ok();
         }
+         public new async Task<User> Update(User entity)
+        {
+            var updEntity = await _appDbContext.Set<User>().FindAsync(entity.ID); 
+            //_appDbContext.Projects.FirstOrDefault(p => p.ID == entity.ID);
+            if (updEntity != null)
+            {
+                updEntity.FirstName = entity.FirstName;
+                updEntity.LastName = entity.LastName;
+                updEntity.Email = entity.Email;
+                updEntity.Password = entity.Password;
+
+                _appDbContext.Entry(updEntity).State = EntityState.Modified;
+                await _appDbContext.SaveChangesAsync();
+                return updEntity;
+            }
+            return null;
+        }
+            
+        */
+
     }
 }

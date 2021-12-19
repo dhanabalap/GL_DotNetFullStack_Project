@@ -9,15 +9,16 @@ namespace GL_DotNetFullStack_Project.Controllers
 {
     
     [ApiController]
-    public class TaskController : ControllerBase
-    {
-        private readonly ITaskRepository _taskRepository;
+    [Route("api/[controller]")]
+    public class TaskController : BaseCrudController<Task, TaskRepoSqlEFImpl>
+    { 
 
-        public TaskController(ITaskRepository taskRepository)
-        { 
-            _taskRepository = taskRepository;
+        public TaskController(TaskRepoSqlEFImpl taskRepository):base(taskRepository)
+        {  
+
         }
 
+        /*
         [HttpGet]
         [Route("api/[controller]")]
         public ActionResult Get()
@@ -126,6 +127,7 @@ namespace GL_DotNetFullStack_Project.Controllers
             }
              
         }
+        */
 
     }
 }
