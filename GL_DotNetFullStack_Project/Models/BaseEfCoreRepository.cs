@@ -9,6 +9,7 @@ namespace GL_DotNetFullStack_Project.Models
         where TContext : DbContext
     {
         private readonly TContext _context;
+         
         public BaseEfCoreRepository(TContext context)
         {
              _context = context;

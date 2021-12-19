@@ -11,6 +11,7 @@ namespace GL_DotNetFullStack_Project.Models
     {
         private readonly AppDbContext _appDbContext;
         private static int count = 0;
+       
         public ProjectRepoSqlEfImpl(AppDbContext appDbContext) : base(appDbContext)
         {
              _appDbContext = appDbContext;           
@@ -24,6 +25,7 @@ namespace GL_DotNetFullStack_Project.Models
                 _appDbContext.SaveChanges();
             }
         }
+        
         /*
         public new async Task<Project> Update(Project entity)
         {

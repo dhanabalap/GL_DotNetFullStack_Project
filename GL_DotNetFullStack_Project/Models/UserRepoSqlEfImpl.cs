@@ -24,7 +24,7 @@ namespace GL_DotNetFullStack_Project.Models
             }
 
         }
-        /*
+         
         public bool UserLogin(string email, string password)
         {
             var loginUser = _appDbContext.Users.FirstOrDefault(x => x.Email == email && x.Password == password);
@@ -35,7 +35,8 @@ namespace GL_DotNetFullStack_Project.Models
 
             return true;// Ok();
         }
-         public new async Task<User> Update(User entity)
+       /*
+          * public new async Task<User> Update(User entity)
         {
             var updEntity = await _appDbContext.Set<User>().FindAsync(entity.ID); 
             //_appDbContext.Projects.FirstOrDefault(p => p.ID == entity.ID);
