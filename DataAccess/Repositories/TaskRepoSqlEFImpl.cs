@@ -1,9 +1,10 @@
-﻿using GL_DotNetFullStack_Project.Data;
+﻿using GL_DotNetFullStack_Project.DataAccess;
+using GL_DotNetFullStack_Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GL_DotNetFullStack_Project.Models
+namespace GL_DotNetFullStack_Project.DataAccess.Repositories
 {
     public class TaskRepoSqlEFImpl : ITaskRepository
     { 

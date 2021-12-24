@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using GL_DotNetFullStack_Project.Models;
 
-namespace GL_DotNetFullStack_Project.Models
+namespace GL_DotNetFullStack_Project.DataAccess.Repositories
 {
     public interface ITaskRepository
     {

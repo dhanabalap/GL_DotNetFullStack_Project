@@ -4,6 +4,7 @@ using GL_DotNetFullStack_Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GL_DotNetFullStack_Project.DataAccess.Repositories;
 
 namespace GL_DotNetFullStack_Project.Controllers
 {

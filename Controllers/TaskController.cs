@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using GL_DotNetFullStack_Project.Models;
+using Microsoft.AspNetCore.Mvc; 
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using GL_DotNetFullStack_Project.DataAccess.Repositories;
+using GL_DotNetFullStack_Project.Models;
 
 namespace GL_DotNetFullStack_Project.Controllers
 {

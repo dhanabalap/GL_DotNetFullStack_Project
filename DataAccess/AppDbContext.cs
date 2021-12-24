@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using GL_DotNetFullStack_Project.Models;
 
-namespace GL_DotNetFullStack_Project.Data
+namespace GL_DotNetFullStack_Project.DataAccess
 {
     public class AppDbContext : DbContext
     {

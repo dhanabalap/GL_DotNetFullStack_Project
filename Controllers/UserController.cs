@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using GL_DotNetFullStack_Project.Models;
+using GL_DotNetFullStack_Project.DataAccess.Repositories;
 using System;
+using GL_DotNetFullStack_Project.Models;
 
 namespace GL_DotNetFullStack_Project.Controllers
 {

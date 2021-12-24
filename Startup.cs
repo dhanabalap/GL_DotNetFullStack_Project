@@ -12,7 +12,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using GL_DotNetFullStack_Project.Models;
 using Microsoft.EntityFrameworkCore;
-using GL_DotNetFullStack_Project.Data;
+using GL_DotNetFullStack_Project.DataAccess;
+using GL_DotNetFullStack_Project.DataAccess.Repositories;
 
 namespace GL_DotNetFullStack_Project
 {

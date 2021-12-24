@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-namespace GL_DotNetFullStack_Project.Models
+using GL_DotNetFullStack_Project.Models;
+namespace GL_DotNetFullStack_Project.DataAccess.Repositories
 {
     public interface IProjectRepository
     {
