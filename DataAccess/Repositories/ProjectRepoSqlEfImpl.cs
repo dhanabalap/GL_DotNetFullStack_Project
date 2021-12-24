@@ -1,5 +1,5 @@
-﻿using GL_DotNetFullStack_Project.DataAccess.Repositories;
-using GL_DotNetFullStack_Project.Models;
+﻿using GL_DotNetFullStack_Project.BusinessEntities.Models;
+using GL_DotNetFullStack_Project.BusinessEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

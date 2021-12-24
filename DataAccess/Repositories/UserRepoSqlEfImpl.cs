@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using GL_DotNetFullStack_Project.DataAccess;
-using GL_DotNetFullStack_Project.Models;
+using System.Linq; 
+using GL_DotNetFullStack_Project.BusinessEntities.Models;
+using GL_DotNetFullStack_Project.BusinessEntities;
 
 namespace GL_DotNetFullStack_Project.DataAccess.Repositories
 {

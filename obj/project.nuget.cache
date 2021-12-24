@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "X2JnnG8cil1RtadZqDfTUP/H5MoUY72+rPtZtJO04BscWqjmy7l2cXIirtZHgHH9H+Qa0LcshEVehLIuDiTI8Q==",
+  "dgSpecHash": "POHhdRBoFGqzof/VF1leEV03BvfMArDJXzT+cY2p9nULiOQJPCObaIjdIpTy+4HYtjWthzkn9AJJU6IKwUCVXg==",
   "success": true,
-  "projectFilePath": "E:\\GreatLearning_FullStack\\Git_src\\Dhanabal_Palanisamy_Sprint2\\GL_DotNetFullStack_Project\\GL_DotNetFullStack_Project.csproj",
+  "projectFilePath": "E:\\GreatLearning_FullStack\\Git_src\\Dhanabal_Palanisamy_Sprint2\\GL_ProjectManagement\\GL_ProjectManagement.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.entityframeworkcore\\5.0.12\\microsoft.entityframeworkcore.5.0.12.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\5.0.12\\microsoft.entityframeworkcore.abstractions.5.0.12.nupkg.sha512",

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using GL_DotNetFullStack_Project.Models;
+using GL_DotNetFullStack_Project.BusinessEntities.Models;
 
 namespace GL_DotNetFullStack_Project.DataAccess
 {
