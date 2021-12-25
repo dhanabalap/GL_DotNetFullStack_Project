@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System;
 using System.Linq;
-using GL_DotNetFullStack_Project.DataAccess.Repositories;
-using GL_DotNetFullStack_Project.BusinessEntities;
-using GL_DotNetFullStack_Project.BusinessEntities.Models;
+using GL_ProjectManagement.DataAccess.Repositories;
+using GL_ProjectManagement.BusinessEntities;
+using GL_ProjectManagement.BusinessEntities.Models;
 
 namespace GL_DotNetFullStack_Project.WebApi.Controllers
 {
@@ -63,13 +63,13 @@ namespace GL_DotNetFullStack_Project.WebApi.Controllers
             {
                 if (task.ProjectID == 0 || task.Status == 0 || task.AssignedToUserID == 0 || task.Detail == null)
                 {
-                    return BadRequest();
+                    return BadRequest("Project ID or Status or Assigned user or Detail zero null");
                 }
-                Task taskexist = _taskRepository.IsProjectTaskExists(task.ProjectID,task.Detail);
+                Task taskexist = _taskRepository.GetTaskById(task.ID);
                 //is Task exist By Project Id and Task detail 
                 if (taskexist != null)
                 {
-                    return StatusCode(409, "Trying create Project Id :"+ task.ProjectID+" and Task:"+task.Detail+" is already exists");
+                    return StatusCode(409, "Trying create Task Id :"+ task.ID+" and Dtails:"+task.Detail+" is already exists");
                 }
 
                 Task createdTask = _taskRepository.CreateTask(task);

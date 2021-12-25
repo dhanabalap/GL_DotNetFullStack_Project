@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using GL_DotNetFullStack_Project.DataAccess.Repositories;
+using GL_ProjectManagement.DataAccess.Repositories;
 using System;
-using GL_DotNetFullStack_Project.BusinessEntities.Models;
-using GL_DotNetFullStack_Project.BusinessEntities;
+using GL_ProjectManagement.BusinessEntities.Models;
+using GL_ProjectManagement.BusinessEntities;
 
-namespace GL_DotNetFullStack_Project.WebApi.Controllers
+namespace GL_ProjectManagement.WebApi.Controllers
 {
 
     [ApiController]
@@ -65,9 +65,15 @@ namespace GL_DotNetFullStack_Project.WebApi.Controllers
             {
                 if (user.FirstName == null || user.LastName == null || user.Email == null || user.Password == null)
                 {
-                    return BadRequest();
+                    return BadRequest("Name or email or password is can not be null");
                 }
-                var userexist = _userRepository.IsUserEmailExist(user.Email);
+                var userIdexist = _userRepository.GetUserByID(user.ID);
+                if (userIdexist != null)
+                {
+                    return BadRequest("User id :" + user.ID + "already exists");
+                }
+
+                 var userexist = _userRepository.IsUserEmailExist(user.Email);
                 //is Already user exist
                 if (userexist)
                 {

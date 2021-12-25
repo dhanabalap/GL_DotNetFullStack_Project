@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using GL_DotNetFullStack_Project.BusinessEntities.Models;
-namespace GL_DotNetFullStack_Project.BusinessEntities
+using GL_ProjectManagement.BusinessEntities.Models;
+namespace GL_ProjectManagement.BusinessEntities
 {
     public interface IProjectRepository
     {

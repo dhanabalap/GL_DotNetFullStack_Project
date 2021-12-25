@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GL_DotNetFullStack_Project
+namespace GL_ProjectManagement
 {
     public class Program
     {

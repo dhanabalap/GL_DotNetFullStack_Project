@@ -10,13 +10,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GL_DotNetFullStack_Project.BusinessEntities.Models;
+using GL_ProjectManagement.BusinessEntities.Models;
 using Microsoft.EntityFrameworkCore;
-using GL_DotNetFullStack_Project.DataAccess;
-using GL_DotNetFullStack_Project.DataAccess.Repositories;
-using GL_DotNetFullStack_Project.BusinessEntities;
+using GL_ProjectManagement.DataAccess;
+using GL_ProjectManagement.DataAccess.Repositories;
+using GL_ProjectManagement.BusinessEntities;
 
-namespace GL_DotNetFullStack_Project
+namespace GL_ProjectManagement
 {
     public class Startup
     {

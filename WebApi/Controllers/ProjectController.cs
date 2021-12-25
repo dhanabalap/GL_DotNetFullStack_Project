@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using GL_DotNetFullStack_Project.BusinessEntities.Models;
+using GL_ProjectManagement.BusinessEntities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GL_DotNetFullStack_Project.BusinessEntities;
+using GL_ProjectManagement.BusinessEntities;
 
 namespace GL_DotNetFullStack_Project.WebApi.Controllers
 {

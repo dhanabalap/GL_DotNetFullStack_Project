@@ -1,10 +1,10 @@
-﻿using GL_DotNetFullStack_Project.BusinessEntities;
-using GL_DotNetFullStack_Project.BusinessEntities.Models;
+﻿using GL_ProjectManagement.BusinessEntities;
+using GL_ProjectManagement.BusinessEntities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GL_DotNetFullStack_Project.DataAccess.Repositories
+namespace GL_ProjectManagement.DataAccess.Repositories
 {
     public class TaskRepoSqlEFImpl : ITaskRepository
     { 

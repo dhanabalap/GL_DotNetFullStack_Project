@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace GL_DotNetFullStack_Project.BusinessEntities.Models
+namespace GL_ProjectManagement.BusinessEntities.Models
 {
     public class Project
     {
         public int ID { get; set; }
+        [Required]
         public string Name { get; set; }
         public string Detail { get; set; }
         public DateTime CreatedOn { get; set; }
