@@ -25,11 +25,11 @@ namespace GL_ProjectManagementTestSuite.UnitTest
         [Theory]
         [Trait("Category", "GetProjectTaskUser")]
         [InlineData("/api/Project")]
-        [InlineData("/api/Project/11")]
+        [InlineData("/api/Project/12")]
         [InlineData("/api/Task")]
-        [InlineData("/api/Task/111")]
+        [InlineData("/api/Task/112")]
         [InlineData("/api/User")]
-        [InlineData("/api/User/1011")]
+        [InlineData("/api/User/1012")]
         public async System.Threading.Tasks.Task GetAllAndById_EndpointsReturnSuccessAndCorrectContentType(string url)
         {
         // Act
@@ -212,6 +212,21 @@ namespace GL_ProjectManagementTestSuite.UnitTest
             Assert.NotNull(actualResult);
             Assert.Equal(HttpStatusCode.NotFound, actualResult.StatusCode);
         }
+        }
+
+        [Theory]
+        [Trait("Category", "DeleteProjectTaskUser")]
+        [InlineData("/api/Project/11")]
+        [InlineData("/api/Task/111")]
+        [InlineData("/api/User/1011")]
+        public async System.Threading.Tasks.Task DeleteById_EndpointsReturnOK(string url)
+        {
+            // Act
+            var actualResult = await _client.DeleteAsync(url);            
+             
+            // Assert
+            Assert.NotNull(actualResult); 
+            Assert.Equal(HttpStatusCode.OK, actualResult.StatusCode);
         }
 
         [Theory]
