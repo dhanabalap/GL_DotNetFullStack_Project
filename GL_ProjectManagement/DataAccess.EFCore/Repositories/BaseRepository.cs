@@ -67,13 +67,17 @@ namespace GL_ProjectManagement.DataAccess.EFCore.Repositories
 
         public async Task<TEntity> Update(TEntity entity)
         {
-            using (_context)
+             _context.Entry(entity).State = EntityState.Modified; 
+             
+            try
             {
-                _context.Entry(entity).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
                 return entity;
             }
-               
+            catch (DbUpdateConcurrencyException)
+            { 
+                    throw; 
+            }
         }
     }
 }

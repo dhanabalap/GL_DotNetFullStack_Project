@@ -17,18 +17,18 @@ namespace GL_ProjectManagement.Controllers
             _userRepository = userRepository;
         }
 
-        [HttpGet]
-        [Route("api/[controller]/{email}/{password}")]
+        [HttpGet("userLogin")] 
         public IActionResult Get(string email, string password)
         {
             try
             {
-                var data = _userRepository.UserLogin(email, password);
-                if (!data)
+                User data = _userRepository.UserLogin(email, password);
+                if ( data.ID ==0)
                 {
                     return NotFound("Authendication is Failed");
                 }
-                return Ok("Authendication is Successfully");
+                //var lUser = _userRepository.Get(data);
+                return Ok(data);
             }
             catch (Exception)
             {

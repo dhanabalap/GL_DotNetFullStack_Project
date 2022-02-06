@@ -27,15 +27,15 @@ namespace GL_ProjectManagement.DataAccess.EFCore.Repositories
 
         }
          
-        public bool UserLogin(string email, string password)
-        {
-            var loginUser = _appDbContext.Users.FirstOrDefault(x => x.Email == email && x.Password == password);
-            if (loginUser == null)
+        public User UserLogin(string email, string password)
+        { 
+              User loginUser=_appDbContext.Users.FirstOrDefault<User>(x => x.Email == email);
+             if (loginUser.ID ==0)
             {
-                return false;// Unauthorized();
+                return null;
             }
+            return loginUser;
 
-            return true;// Ok();
         }
        /*
           * public new async Task<User> Update(User entity)

@@ -7966,11 +7966,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\GreatLearning_FullStack\\Git_src\\Dhanabal_Palanisamy_Sprint3\\GL_ProjectManagementTestSuite\\GL_ProjectManagementTestSuite.csproj",
+      "projectUniqueName": "E:\\GreatLearning_FullStack\\Git_src\\Dhanabal_Palanisamy_Sprint5\\GL_DotNetFullStack_Project\\GL_ProjectManagementTestSuite\\GL_ProjectManagementTestSuite.csproj",
       "projectName": "GL_ProjectManagementTestSuite",
-      "projectPath": "E:\\GreatLearning_FullStack\\Git_src\\Dhanabal_Palanisamy_Sprint3\\GL_ProjectManagementTestSuite\\GL_ProjectManagementTestSuite.csproj",
+      "projectPath": "E:\\GreatLearning_FullStack\\Git_src\\Dhanabal_Palanisamy_Sprint5\\GL_DotNetFullStack_Project\\GL_ProjectManagementTestSuite\\GL_ProjectManagementTestSuite.csproj",
       "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-      "outputPath": "E:\\GreatLearning_FullStack\\Git_src\\Dhanabal_Palanisamy_Sprint3\\GL_ProjectManagementTestSuite\\obj\\",
+      "outputPath": "E:\\GreatLearning_FullStack\\Git_src\\Dhanabal_Palanisamy_Sprint5\\GL_DotNetFullStack_Project\\GL_ProjectManagementTestSuite\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -7987,8 +7987,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "E:\\GreatLearning_FullStack\\Git_src\\Dhanabal_Palanisamy_Sprint3\\GL_ProjectManagement\\GL_ProjectManagement.csproj": {
-              "projectPath": "E:\\GreatLearning_FullStack\\Git_src\\Dhanabal_Palanisamy_Sprint3\\GL_ProjectManagement\\GL_ProjectManagement.csproj"
+            "E:\\GreatLearning_FullStack\\Git_src\\Dhanabal_Palanisamy_Sprint5\\GL_DotNetFullStack_Project\\GL_ProjectManagement\\GL_ProjectManagement.csproj": {
+              "projectPath": "E:\\GreatLearning_FullStack\\Git_src\\Dhanabal_Palanisamy_Sprint5\\GL_DotNetFullStack_Project\\GL_ProjectManagement\\GL_ProjectManagement.csproj"
             }
           }
         }

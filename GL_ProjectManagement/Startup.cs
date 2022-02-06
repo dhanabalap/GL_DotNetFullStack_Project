@@ -28,6 +28,12 @@ namespace GL_ProjectManagement
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowLocalOrigin",
+                    builder => builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
+            }).AddMvc();
+
             services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase(databaseName:"ProjMgmtDB"));
 
             //services.AddSingleton<IUserRepository, UserRepoImpl>();
@@ -55,7 +61,7 @@ namespace GL_ProjectManagement
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GL_ProjectManagement v1"));
             }
-
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseRouting();
 
             app.UseAuthorization();

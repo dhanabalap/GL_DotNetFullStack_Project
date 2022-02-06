@@ -11,8 +11,8 @@
 using System;
 using System.Reflection;
 
-[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("GL_ProjectManagement, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "E:\\GreatLearning_FullStack\\Git_src\\Dhanabal_Palanisamy_Sprint3\\GL_ProjectManageme" +
-    "nt", "GL_ProjectManagement.csproj", "0")]
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("GL_ProjectManagement, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "E:\\GreatLearning_FullStack\\Git_src\\Dhanabal_Palanisamy_Sprint5\\GL_DotNetFullStack" +
+    "_Project\\GL_ProjectManagement", "GL_ProjectManagement.csproj", "0")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("GL_ProjectManagementTestSuite")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]

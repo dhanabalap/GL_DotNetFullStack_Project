@@ -7,6 +7,6 @@ namespace GL_ProjectManagement.BusinessEntities
     public interface IUserRepository: IBaseRepository<User>
     { 
         bool IsUserEmailExist(string email); 
-        bool UserLogin(string email,string password); 
+        User UserLogin(string email,string password); 
     }
 }
